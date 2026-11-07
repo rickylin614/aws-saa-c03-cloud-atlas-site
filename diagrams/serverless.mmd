@@ -1,0 +1,17 @@
+%% 無伺服器 API 與事件驅動訂單
+%% 將即時回應與耗時工作分開；用可重試的事件處理平滑流量尖峰。
+%% https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html
+flowchart LR
+  user["Web / Mobile · Cognito 提供使用者身份"]
+  api["API Gateway · 驗證 token · 節流"]
+  fn["Lambda API · 驗證並接受工作"]
+  queue["SQS queue · 緩衝尖峰 · Visibility timeout"]
+  worker["Lambda worker · 冪等處理 · 有限並行"]
+  db["DynamoDB · 以訂單 ID 做條件寫入"]
+  dlq["Dead-letter queue · 超出重試次數後調查"]
+  user -->|"HTTPS"| api
+  api -->|"同步"| fn
+  fn -->|"送出工作"| queue
+  queue -->|"事件來源對應"| worker
+  worker -->|"寫入結果"| db
+  queue -->|"重試耗盡"| dlq

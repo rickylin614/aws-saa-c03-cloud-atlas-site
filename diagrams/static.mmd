@@ -1,0 +1,13 @@
+%% 安全的全球靜態網站
+%% 儲存桶維持私有，由 CloudFront 作為網站公開入口。
+%% https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html
+flowchart LR
+  dns["Route 53 · Alias DNS 記錄"]
+  edge["CloudFront · HTTPS · ACM · Cache"]
+  s3["Private S3 bucket · REST origin · Block Public Access"]
+  waf["AWS WAF · HTTP 規則與速率限制"]
+  kms["AWS KMS · 選用 SSE-KMS 金鑰授權"]
+  dns -->|"解析到分發"| edge
+  edge -->|"OAC 簽署請求"| s3
+  waf -->|"檢查請求"| edge
+  s3 -->|"加解密授權"| kms

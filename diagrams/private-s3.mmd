@@ -1,0 +1,11 @@
+%% 私有子網如何安全存取 AWS 服務
+%% 資料流向決定路由。存取 S3／DynamoDB 時，不必為了它們把資料繞到 NAT。
+%% https://docs.aws.amazon.com/vpc/latest/privatelink/gateway-endpoints.html
+flowchart LR
+  ec2["EC2 role · 臨時憑證 · 無公開 IP"]
+  gw["Gateway endpoint · Route table + Endpoint policy"]
+  s3["Amazon S3 · Bucket policy + IAM + KMS"]
+  if["Interface endpoint · PrivateLink · ENI + SG"]
+  ec2 -->|"S3 prefix route"| gw
+  gw -->|"AWS 私有連線"| s3
+  ec2 -->|"其他支援服務"| if

@@ -1,0 +1,14 @@
+%% 混合雲網路與集中互連
+%% 多個 VPC 與資料中心之間，將拓撲、路由與加密需求分開判斷。
+%% https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/aws-transit-gateway.html
+flowchart LR
+  onprem["On-premises · 企業資料中心"]
+  dx["Direct Connect · 專線 · 需規劃加密"]
+  vpn["Site-to-Site VPN · IPsec · 網際網路備援"]
+  tgw["Transit Gateway · Hub · 路由表隔離"]
+  vpcs["多個 VPC · 非重疊 CIDR · Attachments"]
+  onprem -->|"私有連線"| dx
+  onprem -->|"加密隧道"| vpn
+  dx -->|"經 DX gateway"| tgw
+  vpn -->|"VPN attachment"| tgw
+  tgw -->|"網段路由"| vpcs

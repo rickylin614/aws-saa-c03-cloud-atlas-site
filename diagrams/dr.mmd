@@ -1,0 +1,14 @@
+%% 跨區域災難復原：Warm standby
+%% 備援區域以縮小規模持續運作，災難時擴容並切換流量；資料複寫不取代備份。
+%% https://docs.aws.amazon.com/wellarchitected/latest/framework/rel_planning_for_recovery_disaster_recovery.html
+flowchart LR
+  route["Route 53 / 路由機制 · 健康檢查 · 切換流程"]
+  app["正式環境 · 完整容量 · 多 AZ"]
+  small["縮小的完整環境 · 已運作 · 可立即處理流量"]
+  db["主要資料庫 · 備份 + PITR"]
+  replica["跨區域複本 · 複寫延遲決定資料落差"]
+  route -->|"平時流量"| app
+  route -->|"災難後擴容"| small
+  app -->|"讀寫"| db
+  small -->|"切換後升級可寫"| replica
+  db -->|"非同步複寫"| replica

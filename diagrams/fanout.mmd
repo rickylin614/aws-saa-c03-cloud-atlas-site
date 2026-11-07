@@ -1,0 +1,13 @@
+%% 訂閱扇出與消費者獨立擴展
+%% 同一個事件需要讓帳務、通知與分析各自收到一份，不能只讓一條共用佇列競爭。
+%% https://docs.aws.amazon.com/sns/latest/dg/sns-sqs-as-subscriber.html
+flowchart LR
+  app["Order service · 發布 OrderCreated"]
+  sns["SNS topic · 訂閱篩選 · 推送"]
+  q1["Billing SQS · 帳務消費者 · 冪等"]
+  q2["Notification SQS · 通知消費者 · 重試"]
+  q3["Analytics SQS · 分析消費者 · DLQ"]
+  app -->|"Publish"| sns
+  sns -->|"獨立副本"| q1
+  sns -->|"獨立副本"| q2
+  sns -->|"獨立副本"| q3

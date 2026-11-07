@@ -1,0 +1,16 @@
+%% 無伺服器資料湖與分析管線
+%% 將資料儲存與運算解耦，以分區與欄式格式降低每次查詢掃描量。
+%% https://docs.aws.amazon.com/athena/latest/ug/performance-tuning-data-optimization-techniques.html
+flowchart LR
+  source["應用與裝置事件 · 串流或批次資料"]
+  firehose["Amazon Data Firehose · 緩衝 · 交付"]
+  s3["S3 data lake · raw / curated · 分區"]
+  glue["AWS Glue · Catalog · ETL · Parquet"]
+  athena["Amazon Athena · SQL · 依掃描量計費"]
+  bi["Amazon Quick / BI · 互動分析與報表"]
+  source -->|"擷取"| firehose
+  firehose -->|"落地"| s3
+  s3 -->|"轉換與建表"| glue
+  glue -->|"中繼資料"| athena
+  athena -->|"讀取資料"| s3
+  athena -->|"查詢結果"| bi
