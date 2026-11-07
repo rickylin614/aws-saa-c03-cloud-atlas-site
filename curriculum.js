@@ -3,8 +3,8 @@ window.CURRICULUM = (() => {
   const lessons = [];
   const s = (title, body, ...bullets) => ({ title, body, bullets });
   const add = (id, title, domain, minutes, summary, objectives, sections, scenario, pitfalls, recap, links) => lessons.push({id,title,domain,minutes,summary,objectives,sections,scenario:{problem:scenario[0],solution:scenario[1],why:scenario[2]},pitfalls,recap,sources:links.map(([title,url])=>({title,url}))});
-  add('foundations','雲端基礎與架構師的思考方式','D0',25,'先從業務需求、故障範圍與責任分工出發，建立後續選服務的共同語言。',
-  ['分清 Region、AZ 與邊緣節點','用六大支柱評估設計','把需求翻譯成可衡量的目標'],[
+  add('foundations','第一課：網站怎麼運作，雲端幫你做什麼？','D0',25,'不用先懂 AWS。從打開一個訂餐網站開始，理解伺服器、資料儲存與雲端，再一步步認識 Region 和 AZ。',
+  ['說出網站的程式、運算與資料各自做什麼','用城市與機房的差別理解 Region 和 AZ','分清備援與備份，解釋如何減少網站中斷'],[
     s('從需求開始，而不是從服務開始','架構題通常同時給出延遲、可用性、資料合規與營運負擔。先畫出使用者、應用程式與資料的流向，再找最嚴格的限制。最低成本只在滿足所有必要條件的方案之間比較。','列出硬性條件：資料駐留、協定、RTO、RPO。','標註優先目標：最低營運負擔、最低延遲或最低費用。'),
     s('Region、AZ 與故障邊界','Region 是地理區域，內有多個隔離的 Availability Zone。把應用分散到不同 AZ 能降低單一資料中心故障的影響；跨 Region 才能處理整個 Region 不可用的情境。邊緣節點主要服務內容傳遞與流量入口。','子網路只屬於一個 AZ；VPC 橫跨同一 Region 的 AZ。','多 AZ 不能直接等同跨 Region 災難復原。'),
     s('六大支柱','Well-Architected 包括營運卓越、安全性、可靠性、效能效率、成本最佳化與永續性。考試常要求你在其中做取捨：自動化可能增加前期工作，卻減少人為錯誤；備援增加費用，卻縮短中斷時間。','以監控、程序及自動復原支援營運。','避免把高規格機器當成所有效能問題的答案。'),
