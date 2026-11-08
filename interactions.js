@@ -161,7 +161,7 @@
   function openTerm(button, pin=false) {
     if(!lookup.has(button.dataset.term)||pinned&&!pin)return;
     clearTimeout(hideTimeout);trigger?.setAttribute('aria-expanded','false');trigger=button;pinned=pin;
-    termSearchOpen=!matchMedia('(max-width: 600px)').matches;
+    termSearchOpen=false;
     if(pin){document.getElementById('reading-settings').hidden=true;document.getElementById('reading-toggle').setAttribute('aria-expanded','false');}
     termNavigation.open(button.dataset.term,true);button.setAttribute('aria-expanded','true');renderTerm(pin);
   }
