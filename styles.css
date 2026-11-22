@@ -78,3 +78,69 @@ body.term-reader-open{overflow:hidden}
 .path-topic>.path-lessons{margin-bottom:0}.path-extensions{background:#f5f7f0}.path-extensions li{margin:.65rem 0;line-height:1.7}
 .path-topic[open]>summary,.path-extensions[open]>summary{margin-bottom:.75rem}
 @media(max-width:600px){.path-topic,.path-extensions{padding:.75rem}.path-topic .path-lessons a{gap:.6rem}}
+
+:root{color-scheme:light}
+/* Theme colors are separate from text size and learning progress. */
+.theme-toggle{display:grid;place-items:center;flex-shrink:0;min-width:40px;min-height:38px;padding:4px 9px;border:1px solid var(--line);border-radius:7px;background:var(--paper);color:var(--ink);font-size:1.1rem;line-height:1.2}
+.theme-toggle:hover{border-color:var(--green)}
+@media screen{
+html[data-theme=dark]{color-scheme:dark;--bg:#141c19;--paper:#1d2823;--surface:#25342c;--ink:#e2ebe4;--muted:#b0c0b4;--green:#94d4b1;--light:#2b4033;--line:#43584a;--gold:#dfc184;--panel:#1d2823}
+html[data-theme=dark] body{background:var(--bg);color:var(--ink)}
+html[data-theme=dark] :is(p,li,small,label,dt,dd,summary,td,th,.note,.subtitle,.muted,.breadcrumb,.breadcrumb b,.nav-label,.edition span,.top-status,.eyebrow,.hero-label,.card-foot,.meta,.toc a,.brand small,.popover-label,.popover-foot small,.diagram-tip,.step-connection){color:var(--muted)}
+html[data-theme=dark] :is(h1,h2,h3,h4,strong,.domain-title,.question,.side-progress,.term-popover h2,.reading-settings h2){color:var(--ink)}
+html[data-theme=dark] :is(a,button,input,select){color:var(--ink)}
+html[data-theme=dark] :is(input,select){accent-color:var(--green)}
+html[data-theme=dark] input::placeholder{color:#a3b5a8}
+html[data-theme=dark] :is(.sidebar,.topbar){background:#18221d}
+html[data-theme=dark] :is(.stat,.panel,.continue-card,.domain-card,.quick-test,.filter,.lesson-card,.article,.table-wrap,.lab-steps details,.empty,.skill-card,.reading-settings,.term-popover,.glossary-search,.glossary-card,.term-dialog-header,#term-search-results,.path-stage,.path-topic,.check-option,.diagram-explorer,.search,.skip){background:var(--paper);border-color:var(--line)}
+html[data-theme=dark] :is(.hero,.exam-info,.callout,.lesson-start,.example-box,.understanding-check,.diagram-stage,.diagram-notes div,.flow-controls,.diagram-inspector,.term-analogy,.term-prerequisites,.term-start,.term-self-check,.system-snapshot,.path-checkpoint,.lesson-context,.context-columns>div,.exam-notes,.next-reason,.check-scope,.path-extensions,.guided-step .step-connection,.term-dialog-footer,.explanation){background:var(--surface);border-color:var(--line)}
+html[data-theme=dark] :is(.article h2,.lesson-outcome,.lesson-card .card-foot,.exam-info small,.term-confusion,.term-dialog-header,.term-dialog-footer,.section-divider,.term-self-check,.term-case){border-color:var(--line)}
+html[data-theme=dark] :is(.analogy,.callout.warn,.term-case,.fault-toggle){background:#383326;border-color:#9d8956}
+html[data-theme=dark] :is(.failure-explanation,.option.incorrect){background:#3f2927;border-color:#ce8d83}
+html[data-theme=dark] .hero-art{background:radial-gradient(ellipse at 60% 60%,#314939,transparent 65%)}
+html[data-theme=dark] :is(nav a.active,.filter.active,.course-icon,.domain-mark,.tag,.step-number,.term-mechanism>span,.reading-toggle,.reading-presets button,.popover-head>button,.diagram-zoom button,.flow-controls button,.question-palette button,.term-header-actions>button,.term-font-tools button,.term-navigation button,.term-prerequisites button,.term-breadcrumbs button[aria-current=page]){background:#2b4033;color:#c0e6cb;border-color:#59775f}
+html[data-theme=dark] :is(nav a b,.progress-track){background:#35483c;color:var(--ink)}
+html[data-theme=dark] .progress-track i{background:var(--green)}
+html[data-theme=dark] .brand-icon{background:#397556;color:#fff}
+html[data-theme=dark] :is(.tag.gold,.tag.blue){background:#3b382c;color:#eed9a9}
+html[data-theme=dark] .tag.blue{background:#283e4b;color:#bcd9ec}
+html[data-theme=dark] :is(.settings select,.glossary-search input,.term-search input){background:var(--bg);border-color:var(--line)}
+html[data-theme=dark] .search input{background:transparent}
+html[data-theme=dark] :is(.btn,.term-dialog-footer>button){background:var(--green);border-color:var(--green);color:#12291c}
+html[data-theme=dark] .btn:hover{background:#b8e8ca;color:#12291c}
+html[data-theme=dark] .btn.secondary{background:var(--surface);border-color:var(--line);color:var(--ink)}
+html[data-theme=dark] .btn.ghost{background:transparent;border-color:transparent;color:var(--green)}
+html[data-theme=dark] .btn.danger{background:#8e443d;border-color:#cf8b80;color:#fff}
+html[data-theme=dark] .article a:not(.btn){color:var(--green)}
+html[data-theme=dark] :is(.text-btn,.import-label,.inline-link,.section-head a,.checkmark,.term-quick-links button){color:var(--green)}
+html[data-theme=dark] :is(.option,.check-option){border-color:var(--line);color:var(--ink)}
+html[data-theme=dark] :is(.option:hover,.check-option:hover,.path-lessons a:hover,#term-search-results button:hover){background:#304739}
+html[data-theme=dark] :is(.option.selected,.option.correct,.check-option.check-correct,.check-feedback,.question-palette button.answered,.fault-toggle.is-failed){background:#294532;border-color:#87b98f;color:#d4edd7}
+html[data-theme=dark] :is(.option.incorrect,.option.selected.incorrect){background:#3f2927;border-color:#ce8d83;color:var(--ink)}
+html[data-theme=dark] .flow-controls>span,html[data-theme=dark] .diagram-toolbar span{color:var(--ink)}
+html[data-theme=dark] .path-lessons a>span{background:#2b4033;color:#c0e6cb}
+html[data-theme=dark] .check-option.check-selected{outline-color:#b5dca5}
+html[data-theme=dark] :is(.option .letter,.check-option>span){border-color:#77927a}
+html[data-theme=dark] .term{background:none;color:#a1deb8;border-bottom-color:#85b896}
+html[data-theme=dark] :is(.term:hover,.term:focus-visible,.term[aria-expanded=true]){background:#304d38;color:#ddf4df}
+html[data-theme=dark] .term-backdrop{background:#0009}
+html[data-theme=dark] #term-search-results button{background:var(--paper)}
+html[data-theme=dark] th{background:#2b3b31}
+html[data-theme=dark] :focus-visible{outline-color:#b6dfbd}
+html[data-theme=dark] pre{background:#101813;color:#e0edda}
+html[data-theme=dark] #toast{background:#345c42;color:#f1f8f2}
+/* Keep diagrams readable, including selected and failed nodes, without filtering the page. */
+html[data-theme=dark] svg .zone{fill:#1a2b20;stroke:#66886a}
+html[data-theme=dark] svg :is(.node,.node-accent){fill:#2c3e31;stroke:#8baa8c}
+html[data-theme=dark] svg :is(.node-title,.node-sub,.zone-label){fill:#d7e8d8}
+html[data-theme=dark] svg .wire{stroke:#9cbf9b}
+html[data-theme=dark] :is(.diagram-edge:hover,.diagram-edge:focus,.diagram-edge.diagram-selected) .wire{stroke:#b9e1a9}
+html[data-theme=dark] .diagram-node:hover rect,html[data-theme=dark] .diagram-node:focus rect{fill:#3b5b3e;stroke:#b9e1a9}
+html[data-theme=dark] .diagram-selected rect{fill:#37583b!important;stroke:#b9e1a9!important}
+html[data-theme=dark] .diagram-selected text{fill:#edf8e7}
+html[data-theme=dark] .diagram-failed rect{fill:#633b35!important;stroke:#f0b4a3!important}
+html[data-theme=dark] .diagram-disrupted .wire{stroke:#f0b4a3!important}
+html[data-theme=dark] .hero-art svg path:not([fill=none]){fill:#344c3a;stroke:#8daa85}
+html[data-theme=dark] .hero-art svg text{fill:#c2dcbb}
+}
+@media print{.theme-toggle{display:none!important}}
