@@ -65,3 +65,11 @@ body.term-reader-open{overflow:hidden}
 @media(max-width:650px){.context-columns{grid-template-columns:1fr;gap:12px}.lesson-context,.lesson-result,.next-reason,.path-stage{padding:18px 15px}.path-lessons a{grid-template-columns:1.5rem minmax(0,1fr);gap:8px}.path-lessons a>small{grid-column:2;margin:0}.path-stage .row{flex-wrap:wrap}.path-checkpoint{padding:15px}.system-snapshot{padding:14px}.lesson-result .btn,.next-reason .btn{width:100%;text-align:left}}
 @media print{.path-stage,.lesson-context,.lesson-result,.next-reason{break-inside:avoid}.exam-notes:not([open]){display:none}}
 .guided-step .step-connection{font-size:.95rem;line-height:1.9;color:#5e7550;border-left:3px solid #b8caa8;padding:9px 13px;background:#f4f7ef;margin:0 0 15px}.check-scope{background:#eef3e7;border-radius:8px;padding:18px;margin:18px 0 22px}.check-scope>strong{font-size:.95rem}.article .check-scope p{font-size:1rem;margin:8px 0 12px}.check-basis{display:grid;gap:8px}.check-basis a{font-size:.9rem;text-decoration:underline;text-underline-offset:4px;line-height:1.8}.recap-guide{margin:18px 0}.recap-guide>summary{cursor:pointer;font-size:1rem;line-height:1.8}.recap-guide li{padding:8px 0}
+/* Progressive transfer practice stays in normal reading flow and follows text scaling. */
+.bridge-practice{margin:2rem 0;padding:1.5rem;border:1px solid var(--line,#d9dfd0);border-radius:1rem;background:var(--panel,#fff)}
+.bridge-practice[hidden]{display:none}
+.bridge-practice fieldset{min-width:0;border:0;padding:0;margin:1rem 0}
+.bridge-practice legend{font-size:1rem;margin-bottom:.75rem}
+.bridge-practice .option{overflow-wrap:anywhere;align-items:flex-start}
+.bridge-practice input{flex:none;margin-top:.35rem}
+.bridge-feedback{margin-top:1rem}

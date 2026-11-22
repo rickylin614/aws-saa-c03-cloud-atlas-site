@@ -2,7 +2,7 @@
 (() => {
   const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const guides = {...window.LESSON_GUIDES_A, ...window.LESSON_GUIDES_B};
-  const termLessons = {...window.TERM_LESSONS_A, ...window.TERM_LESSONS_B, ...window.TERM_LESSONS_C, ...window.TERM_LESSONS_FOUNDATIONS};
+  const termLessons = {...window.TERM_LESSONS_A, ...window.TERM_LESSONS_B, ...window.TERM_LESSONS_C, ...window.TERM_LESSONS_FOUNDATIONS, ...window.TERM_LESSONS_BRIDGES};
   for(const [id,prerequisites]of Object.entries({ec2:['server','virtual-machine','cpu','os'],s3:['storage','object','bucket','filesystem'],lambda:['program','function','event','serverless']})){
     if(termLessons[id])termLessons[id]={...termLessons[id],prerequisites};
   }
@@ -56,6 +56,15 @@
     }).filter(item=>Number.isFinite(item.score)).sort((a,b)=>a.score-b.score).slice(0,10).map(item=>item.entry);
   }
 
+  function practiceHTML(id,index) {
+    const guide=guides[id],item=guide.practice[index];
+    const basis=item.basis.map(i=>'<a href="#" data-scroll="guide-step-'+i+'">回看第 '+(i+1)+' 步</a>').join(' · ');
+    return `<span class="tag">${escape(item.level)} · ${index+1} / ${guide.practice.length}</span><p>${escape(item.context)}</p><h3>${escape(item.question)}</h3><p class="note">${item.answers.length>1?'多選：選 '+item.answers.length+' 項，完整選對才通過。':'單選：選 1 項。'} ${basis}</p><fieldset><legend>選擇符合前文條件的安排</legend>${item.options.map((o,i)=>`<label class="option"><input type="${item.answers.length>1?'checkbox':'radio'}" name="bridge-${id}-${index}" value="${i}"><span>${escape(o)}</span></label>`).join('')}</fieldset><button type="button" class="btn" data-bridge-submit="${id}" data-practice-index="${index}">送出這一步</button><div class="bridge-feedback" aria-live="polite"></div>`;
+  }
+  function progressionHTML(course) {
+    if(!guides[course.id]?.practice)return '';
+    return `<section class="bridge-practice" data-bridge-practice="${course.id}" hidden><h2>先改一個條件，再合併判斷</h2><p>沿用已教機制，每次只做一題。答對後再進入下一步；答錯可回看依據後重試。</p><div class="bridge-question">${practiceHTML(course.id,0)}</div></section>`;
+  }
   function lessonGuide(course) {
     const guide=guides[course.id];if(!guide)return '';
     const steps=guide.steps.map((step,i)=>
@@ -309,7 +318,21 @@
           button.classList.toggle('check-correct',Number(button.dataset.answer)===guide.check.answer);
         });
         section.querySelector('.check-feedback').innerHTML=`<h3>${selected===guide.check.answer?'✓ 你抓到重點了':'先別急，看看這個差別'}</h3><p>${escape(guide.check.explanations[selected])}</p><details><summary>比較三個選項的原因</summary><ul>${guide.check.explanations.map((text,i)=>`<li><strong>${String.fromCharCode(65+i)}${i===guide.check.answer?'（正確）':''}：</strong>${escape(text)}</li>`).join('')}</ul></details>`;
+        const practice=section.closest('article')?.querySelector('[data-bridge-practice]');
+        if(practice&&selected===guide.check.answer)practice.hidden=false;
         annotate(section.querySelector('.check-feedback'));return;
+      }
+      const bridgeSubmit=event.target.closest?.('[data-bridge-submit]'),bridgeNext=event.target.closest?.('[data-bridge-next]');
+      if(bridgeSubmit){
+        const id=bridgeSubmit.dataset.bridgeSubmit,index=Number(bridgeSubmit.dataset.practiceIndex),item=guides[id].practice[index],section=bridgeSubmit.closest('.bridge-question');
+        const chosen=[...section.querySelectorAll('input:checked')].map(input=>Number(input.value));
+        const ok=chosen.length===item.answers.length&&item.answers.every(i=>chosen.includes(i));
+        const feedback=section.querySelector('.bridge-feedback');
+        feedback.innerHTML=chosen.length!==item.answers.length?`<p>這一步請選 ${item.answers.length} 項，再送出比較。</p>`:`<h3>${ok?'✓ 已完成這一步':'先回到已教的條件'}</h3><p>${escape(item.explanation)}</p>${ok&&index+1<guides[id].practice.length?`<button type="button" class="btn secondary" data-bridge-next="${id}" data-practice-index="${index+1}">準備好了，合併兩個條件</button>`:ok?'<p>兩步已完成。先試著解釋理由，再回到本課成果；這不計入最終模擬考分數。</p>':'<p>可重新勾選後再送出，不需要猜下一題。</p>'}`;
+        annotate(feedback);return;
+      }
+      if(bridgeNext){
+        const section=bridgeNext.closest('.bridge-question');section.innerHTML=practiceHTML(bridgeNext.dataset.bridgeNext,Number(bridgeNext.dataset.practiceIndex));annotate(section);section.querySelector('input')?.focus();return;
       }
       const node=event.target.closest?.('[data-arch-node]'),edge=event.target.closest?.('[data-arch-edge]'),control=event.target.closest?.('[data-diagram-action]');
       const id=node?.dataset.architecture||edge?.dataset.architecture||control?.dataset.architecture;if(!id)return;
@@ -329,6 +352,6 @@
     window.addEventListener('resize',positionTerm);
     window.addEventListener('scroll',event=>{if(event.target?.closest?.('#term-popover'))return;if(trigger&&!pinned&&!termHasFocus())closeTerm();else positionTerm();},true);
   }
-  window.CloudAtlasUX={enhance,lessonGuide,glossaryPage,matchTerms,setScale,guides,createTermHistory,termLessons,searchTerms};
+  window.CloudAtlasUX={enhance,lessonGuide,progressionHTML,glossaryPage,matchTerms,setScale,guides,createTermHistory,termLessons,searchTerms};
   init();
 })();
