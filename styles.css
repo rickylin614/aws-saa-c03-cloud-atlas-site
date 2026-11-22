@@ -73,3 +73,8 @@ body.term-reader-open{overflow:hidden}
 .bridge-practice .option{overflow-wrap:anywhere;align-items:flex-start}
 .bridge-practice input{flex:none;margin-top:.35rem}
 .bridge-feedback{margin-top:1rem}
+.path-topic,.path-extensions{margin:1rem 0;padding:1rem;border:1px solid var(--line,#dfe5d8);border-radius:12px;background:var(--paper,#fff)}
+.path-topic>summary,.path-extensions>summary{cursor:pointer;font-weight:600;line-height:1.7;overflow-wrap:anywhere}
+.path-topic>.path-lessons{margin-bottom:0}.path-extensions{background:#f5f7f0}.path-extensions li{margin:.65rem 0;line-height:1.7}
+.path-topic[open]>summary,.path-extensions[open]>summary{margin-bottom:.75rem}
+@media(max-width:600px){.path-topic,.path-extensions{padding:.75rem}.path-topic .path-lessons a{gap:.6rem}}

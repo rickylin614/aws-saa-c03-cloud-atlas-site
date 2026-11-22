@@ -2,7 +2,7 @@
 (() => {
   const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const guides = {...window.LESSON_GUIDES_A, ...window.LESSON_GUIDES_B};
-  const termLessons = {...window.TERM_LESSONS_A, ...window.TERM_LESSONS_B, ...window.TERM_LESSONS_C, ...window.TERM_LESSONS_FOUNDATIONS, ...window.TERM_LESSONS_BRIDGES};
+  const termLessons = {...window.TERM_LESSONS_A, ...window.TERM_LESSONS_B, ...window.TERM_LESSONS_C, ...window.TERM_LESSONS_FOUNDATIONS, ...window.TERM_LESSONS_BRIDGES, ...window.TERM_LESSONS_REPAIRS};
   for(const [id,prerequisites]of Object.entries({ec2:['server','virtual-machine','cpu','os'],s3:['storage','object','bucket','filesystem'],lambda:['program','function','event','serverless']})){
     if(termLessons[id])termLessons[id]={...termLessons[id],prerequisites};
   }
@@ -84,7 +84,7 @@
     const nodes=[];
     while(walker.nextNode()) {
       const node=walker.currentNode;
-      if(node.nodeValue.trim() && !node.parentElement.closest('a,button,input,textarea,select,option,pre,code,svg,script,style,[data-no-glossary],.term')) nodes.push(node);
+      if(node.nodeValue.trim() && !node.parentElement.closest('a,button,summary,input,textarea,select,option,pre,code,svg,script,style,[data-no-glossary],.term')) nodes.push(node);
     }
     for(const node of nodes) {
       const matches=matchTerms(node.nodeValue);
