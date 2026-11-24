@@ -168,3 +168,12 @@ html[data-theme=dark] .hero-art svg text{fill:#c2dcbb}
 @container(max-width:18rem){.visual-comparison>.visual-node{display:flex;flex-direction:column;align-items:center;text-align:center}.visual-chain>.visual-node .teaching-icon,.visual-comparison>.visual-node .teaching-icon{width:min(3.25rem,64px);height:auto;aspect-ratio:1}}
 @media(max-width:650px){.lesson-visual{padding:12px}.visual-node{padding:12px}.visual-fanout{gap:12px}.visual-branch{grid-template-columns:minmax(0,1fr);gap:6px}.visual-branch>.visual-connector{flex-direction:row;gap:.5rem}.visual-branch .visual-arrow{transform:rotate(90deg)}.visual-tree-node{padding:6px}.visual-tree-node>.visual-node{padding:8px}}
 .article p,.article li,.article h1,.article h2,.article h3,.article h4,.lesson-visual figcaption{overflow-wrap:anywhere}
+
+/* Quiet textbook vignettes; art is decoration, not a substitute for explanation. */
+.chibi-break{display:flex;align-items:center;justify-content:center;gap:24px;margin:30px auto;padding:14px 8px;max-width:560px;min-width:0;border-top:1px dashed var(--line)}
+.chibi-cutout{position:relative;width:148px;aspect-ratio:1;overflow:hidden;flex:0 0 148px;contain:paint}
+.chibi-cutout>img{position:absolute;left:calc(var(--chibi-col)*-100%);top:calc(var(--chibi-row)*-100%);display:block;width:400%;height:400%;max-width:none;object-fit:fill;pointer-events:none;user-select:none}
+.chibi-copy{min-width:0;max-width:19rem}.chibi-copy>span{display:block;font-size:.75rem;letter-spacing:.08em;color:var(--green);margin-bottom:.4rem}.article .chibi-copy p{font-size:.9rem;line-height:1.9;color:var(--muted);margin:0;overflow-wrap:anywhere}
+.chibi-right .chibi-cutout{order:2}.chibi-left .chibi-cutout{order:0}
+@media(max-width:650px){.chibi-break{gap:14px;flex-direction:column;margin:24px 0;padding:14px 0;text-align:center}.chibi-break .chibi-cutout{order:0;width:132px;flex-basis:132px}.chibi-copy{max-width:100%}}
+@media print{.chibi-break{break-inside:avoid}.chibi-cutout{width:110px;flex-basis:110px}.chibi-copy>span,.article .chibi-copy p{color:#444}}
